@@ -2,5 +2,9 @@
 
 export default class Field {
     constructor() {
+
+    }
+
+    hasShip(coord) {
     }
 }

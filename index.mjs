@@ -1,5 +1,7 @@
 'use strict';
 
-import {game} from './game';
+import {Battle} from './battle';
 
-game.start();
+const battle = new Battle;
+
+battle.start();

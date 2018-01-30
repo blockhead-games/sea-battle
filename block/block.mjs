@@ -1,15 +1,18 @@
 'use strict';
 
+const health = 100;
+
 export default class Block {
+
     /**
-     * @param power
-     * @param defence
-     * @param ability
+     * @param {Perk} perk
      */
-    constructor(power, defence, ability) {
-        this.power = power;
-        this.defence = defence;
-        this.ability = ability;
+    constructor(perk) {
+        this.health = health;
+        this.perk = perk;
     }
 
+    set health(val) {
+
+    }
 }
