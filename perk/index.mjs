@@ -1,3 +1,3 @@
 'use strict';
 
-export {default as Perk} from './perk';
+export {default as Rocket} from './rocket';
