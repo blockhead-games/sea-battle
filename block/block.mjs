@@ -11,22 +11,10 @@ export default class Block {
      * @param {Object} params
      */
     constructor(params) {
-        const {ship, perk} = params || {};
-
-        if (!(ship instanceof Ship)) {
-            throw 'Корабль задан криво';
-        }
-
-        if (!(perk instanceof Perk)) {
-            throw 'Перк задан криво';
-        }
-
-        this.health = health;
-        this.perk = perk;
-        this.ship = ship;
+        this.isOpen = false;
     }
 
-    set health(val) {
-
+    set isOpen(val) {
+        this._isOpen = !!val;
     }
 }

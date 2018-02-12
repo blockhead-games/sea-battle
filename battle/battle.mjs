@@ -3,23 +3,25 @@
 import {Field} from '../field';
 import {Ship} from '../ship';
 
+// > create field
+// > create ships
+// > placeShips - link the field cells with the ships
 export default class Battle {
     constructor() {
+
         this.field = new Field();
-        let ship = new Ship();
-        
-        this.field.addShip('A3', Field.DIRECTION_BOTTOM, ship);
+        console.log('field created.');
+
+        const ship = new Ship();
+        console.log('ship created.');
+
+        this.field.placeShip(ship, ['A-1', 'A-4']);
+        console.log('ship placed to the field.');
     }
 
     start() {
         console.log('Battle has begun!');
-    }
-
-    attack(coord, gun) {
-        if (this.field.hasShip(coord)) {
-            // hit!
-        } else {
-            // miss.
-        }
+        console.log('Show field: ');
+        console.log(JSON.stringify(this.field));
     }
 }

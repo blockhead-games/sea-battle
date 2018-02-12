@@ -1,18 +1,24 @@
 'use strict';
 
-import {Block} from '../block'
+import {ShipBlock} from '../block'
 import {Rocket} from '../perk'
 
 
 export default class Ship {
     constructor(params) {
-        this.blocks = [];
-        this.blocks.push([]);
-        
-        for (let i = 0; i < 4; i++) {
-            var data = {ship: this, perk: new Rocket()};
-            this.blocks.push(new Block(data));
-        }
+
+        this.name = 'Ship 4';
+
+        this.blocks = [
+            new ShipBlock({perk: new Rocket(), hitBlock: this.hitBlock}),
+            new ShipBlock({perk: new Rocket(), hitBlock: this.hitBlock}),
+            new ShipBlock({perk: new Rocket(), hitBlock: this.hitBlock}),
+            new ShipBlock({perk: new Rocket(), hitBlock: this.hitBlock})
+        ];
+    }
+
+    hitBlock(perk) {
+        console.log(`${this.name} was attacked in block with perk [${perk}]`)
     }
 
     static get rows() {
