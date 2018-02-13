@@ -2,6 +2,7 @@
 
 const DEFAULT_WIDTH = 10;
 const DEFAULT_HEIGHT = 10;
+const COORDS_DELIMITER = '-';
 
 export default class Field {
     constructor() {
@@ -17,23 +18,50 @@ export default class Field {
 
     /**
      * @param ship
-     * @param coords
+     * @param coordsCollection
      */
-    placeShip(ship, coords) {
-        // getCells
-        const cells = getCells.apply(this, parseCoords(coords));
+    placeShip(ship, coordsCollection) {
+        // getCellsSequence
+
+        // const parseCoords = (coords) => coords.map((val) => val.split(COORDS_DELIMITER));
+
+        // coordsCollection.map((coords) => parseCoords(coords));
+
+        const cells = getCellsSequence.apply(this, coordsCollection.map((coords) => parseCoords(coords)));
 
         cells.forEach((cell, i) => {
             cell.block = ship.blocks[i];
         });
     }
 
-    attack(coords, gun) {
-        if (this.hasShip(coords)) {
+    attack(coordsCollection, gun) {
+
+        coordsCollection.forEach((coords) => {
+            let cell = this.getCell(coords);
+            console.log(cell);
+        });
+
+        // cells.forEach((cell, i) => {
+        //     cell.block = ship.blocks[i];
+        // });
+
+        // console.log(this.grid.A[1]);
+
+        /*if (this.hasShip(coords)) {
             // hit!
         } else {
             // miss.
-        }
+        }*/
+    }
+
+    /**
+     *
+     * @param {string} coords
+     * @return {object} - Cell
+     */
+    getCell(coords) {
+        const [letter, number] = parseCoords(coords);
+        return this.grid[letter][number];
     }
 
     hasShip(coords) {
@@ -43,7 +71,7 @@ export default class Field {
     }
 }
 
-const parseCoords = (coords) => coords.map((val) => val.split('-'));
+const parseCoords = (coords) => coords.split(COORDS_DELIMITER);
 
 const generateAlphabet = (size = 26, firstChar = 65) => Array.from({
     length: size
@@ -76,7 +104,7 @@ function getRow(letter, number1, number2) {
 
 // A1-A4
 // A1-B1
-function getCells(coord1, coord2) {
+function getCellsSequence(coord1, coord2) {
     //@todo check if (Letter, Number) go in row
 
     const letters = Object.keys(this.grid);

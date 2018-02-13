@@ -22,6 +22,7 @@ export default class Battle {
     start() {
         console.log('Battle has begun!');
         console.log('Show field: ');
-        console.log(JSON.stringify(this.field));
+        console.log(JSON.stringify(this.field, "", 2));
+        this.field.attack(['A-2']);
     }
 }

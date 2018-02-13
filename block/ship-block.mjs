@@ -1,6 +1,5 @@
 'use strict';
 
-import {Ship} from "../ship/index.mjs";
 import Perk from "../perk/perk.mjs";
 import Block from "./block.mjs";
 
