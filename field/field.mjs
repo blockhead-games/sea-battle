@@ -16,42 +16,34 @@ export default class Field {
         // console.log(this.grid.A[1]);
     }
 
+    // A1-A4
+    // A1-B1
+    getCellsSequence([coord1, coord2]) {
+        //@todo check if (Letter, Number) go in row
+
+        const letters = Object.keys(this.grid);
+        const [letter1, number1] = coord1;
+        const [letter2, number2] = coord2;
+
+        if (letter1 === letter2) {
+            return getRow.apply(this, [letter1, number1, number2]);
+        } else if (number1 === number2) {
+            return getColumn.apply(this, [letter1, letter2, number1]);
+        } else {
+            throw 'Incorrect coords.';
+        }
+    }
+
     /**
      * @param ship
      * @param coordsCollection
      */
     placeShip(ship, coordsCollection) {
-        // getCellsSequence
-
-        // const parseCoords = (coords) => coords.map((val) => val.split(COORDS_DELIMITER));
-
-        // coordsCollection.map((coords) => parseCoords(coords));
-
-        const cells = getCellsSequence.apply(this, coordsCollection.map((coords) => parseCoords(coords)));
+        const cells = this.getCellsSequence(coordsCollection.map((coords) => parseCoords(coords)));
 
         cells.forEach((cell, i) => {
             cell.block = ship.blocks[i];
         });
-    }
-
-    attack(coordsCollection, gun) {
-
-        coordsCollection.forEach((coords) => {
-            let cell = this.getCell(coords);
-            console.log(cell);
-        });
-
-        // cells.forEach((cell, i) => {
-        //     cell.block = ship.blocks[i];
-        // });
-
-        // console.log(this.grid.A[1]);
-
-        /*if (this.hasShip(coords)) {
-            // hit!
-        } else {
-            // miss.
-        }*/
     }
 
     /**
@@ -62,6 +54,12 @@ export default class Field {
     getCell(coords) {
         const [letter, number] = parseCoords(coords);
         return this.grid[letter][number];
+    }
+
+    display() {
+        Object.entries(this.grid).forEach(([k, v]) => {
+            console.log(k, JSON.stringify(v));
+        });
     }
 
     hasShip(coords) {
@@ -102,24 +100,10 @@ function getRow(letter, number1, number2) {
     return row;
 }
 
-// A1-A4
-// A1-B1
-function getCellsSequence(coord1, coord2) {
-    //@todo check if (Letter, Number) go in row
-
+function getColumn(letter1, letter2, number) {
     const letters = Object.keys(this.grid);
-    const [letter1, number1] = coord1;
-    const [letter2, number2] = coord2;
+    const start = letters.indexOf(letter1);
+    const end = letters.indexOf(letter2) + 1;
 
-    // console.log(coord1);
-    // console.log(coord2);
-
-    if (letter1 === letter2) {
-        return getRow.apply(this, [letter1, number1, number2]);
-    } else {
-        // getColumn();
-    }
-
-    // console.log(grid[letter1][number1]);
-    // console.log(grid[letter2][number2]);
+    return letters.slice(start, end).map((letter) => this.grid[letter][number]);
 }
