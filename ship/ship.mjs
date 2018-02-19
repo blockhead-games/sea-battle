@@ -10,10 +10,10 @@ export default class Ship {
         this.name = 'Ship 4';
 
         this.blocks = [
-            new ShipBlock({perk: new Rocket(), hitBlock: this.hitBlock}),
-            new ShipBlock({perk: new Rocket(), hitBlock: this.hitBlock}),
-            new ShipBlock({perk: new Rocket(), hitBlock: this.hitBlock}),
-            new ShipBlock({perk: new Rocket(), hitBlock: this.hitBlock})
+            new ShipBlock({perk: new Rocket(), onHit: this.hitBlock.bind(this)}),
+            new ShipBlock({perk: new Rocket(), onHit: this.hitBlock.bind(this)}),
+            new ShipBlock({perk: new Rocket(), onHit: this.hitBlock.bind(this)}),
+            new ShipBlock({perk: new Rocket(), onHit: this.hitBlock.bind(this)})
         ];
     }
 

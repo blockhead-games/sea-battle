@@ -28,6 +28,8 @@ export default class Battle {
         coordsCollection.forEach((coords) => {
             const cell = this.field.getCell(coords);
 
+            cell.block.hit(gun);
+
             if (Field.hasShip(cell)) {
                 console.log(`${cell.id} - hit!`);
             } else {
@@ -43,7 +45,7 @@ export default class Battle {
         this.field.display();
 
         console.log('attack: ');
-        this.attack(['A:2']);
-        this.attack(['A:6']);
+        this.attack(['A:2'], 'Machine Gun');
+        this.attack(['A:6'], 'Rocket');
     }
 }

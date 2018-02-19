@@ -11,4 +11,8 @@ export default class Block {
     set isOpen(val) {
         this._isOpen = !!val;
     }
+
+    get isOpen() {
+        return this._isOpen;
+    }
 }

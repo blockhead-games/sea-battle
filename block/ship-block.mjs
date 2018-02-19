@@ -26,8 +26,9 @@ export default class ShipBlock extends Block {
         this.onHit = onHit;
     }
 
-    hit() {
-        this.onHit(this.perk.name);
+    hit(perk) {
+        this.isOpen = true;
+        if (this.onHit) this.onHit(perk);
     }
 
     // set health(val) {

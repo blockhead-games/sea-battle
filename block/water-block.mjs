@@ -19,7 +19,8 @@ export default class WaterBlock extends Block {
     }
 
     hit() {
-        this.onHit(this.perk.name);
+        this.isOpen = true;
+        if (this.onHit) this.onHit();
     }
 
     // set health(val) {
