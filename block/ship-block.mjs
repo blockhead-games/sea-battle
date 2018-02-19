@@ -4,6 +4,7 @@ import Perk from "../perk/perk.mjs";
 import Block from "./block.mjs";
 
 const health = 100;
+const type = 'SHIP_BLOCK';
 
 export default class ShipBlock extends Block {
 
@@ -20,6 +21,7 @@ export default class ShipBlock extends Block {
         }
 
         this.health = health;
+        this.type = type;
         this.perk = perk;
         this.onHit = onHit;
     }

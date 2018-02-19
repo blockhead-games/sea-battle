@@ -17,8 +17,8 @@ export default class Battle {
 
         console.log('ships created.');
 
-        this.field.placeShip(ship1, ['A-1', 'A-4']);
-        this.field.placeShip(ship2, ['B-3', 'C-3']);
+        this.field.placeShip(ship1, ['A:1', 'A:4']);
+        this.field.placeShip(ship2, ['B:3', 'C:3']);
 
         console.log('ships placed on the field.');
     }
@@ -26,21 +26,14 @@ export default class Battle {
     attack(coordsCollection, gun) {
 
         coordsCollection.forEach((coords) => {
-            let cell = this.field.getCell(coords);
-            console.log(cell);
+            const cell = this.field.getCell(coords);
+
+            if (Field.hasShip(cell)) {
+                console.log(`${cell.id} - hit!`);
+            } else {
+                console.log(`${cell.id} - miss.`);
+            }
         });
-
-        // cells.forEach((cell, i) => {
-        //     cell.block = ship.blocks[i];
-        // });
-
-        // console.log(this.grid.A[1]);
-
-        /*if (this.hasShip(coords)) {
-            // hit!
-        } else {
-            // miss.
-        }*/
     }
 
     start() {
@@ -50,6 +43,7 @@ export default class Battle {
         this.field.display();
 
         console.log('attack: ');
-        this.attack(['A-2']);
+        this.attack(['A:2']);
+        this.attack(['A:6']);
     }
 }

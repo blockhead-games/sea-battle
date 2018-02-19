@@ -1,8 +1,10 @@
 'use strict';
 
+import WaterBlock from "../block/water-block.mjs";
+
 const DEFAULT_WIDTH = 10;
 const DEFAULT_HEIGHT = 10;
-const COORDS_DELIMITER = '-';
+const COORDS_DELIMITER = ':';
 
 export default class Field {
     constructor() {
@@ -47,7 +49,6 @@ export default class Field {
     }
 
     /**
-     *
      * @param {string} coords
      * @return {object} - Cell
      */
@@ -62,7 +63,8 @@ export default class Field {
         });
     }
 
-    hasShip(coords) {
+    static hasShip(cell) {
+        return cell.block.type === 'SHIP_BLOCK';
     }
 
     reset() {
@@ -75,18 +77,29 @@ const generateAlphabet = (size = 26, firstChar = 65) => Array.from({
     length: size
 }, (_, i) => String.fromCharCode(firstChar + i));
 
-const makeCells = (number) => Object.assign({}, ...Array.from({
-    length: number
+/**
+ * @todo make each cell new instance of {WaterBlock}
+ * @todo rename makeCells -> makeBlocks
+ * @param width
+ * @param letter
+ */
+const makeCells = (width, letter) => Object.assign({}, ...Array.from({
+    length: width
 }).map((_, i) => {
-    const index = i + 1;
-    return {[index]: {id: index}}; // new Cell
+    const number = i + 1;
+    return {
+        [number]: {
+            id: letter + COORDS_DELIMITER + number,
+            block: new WaterBlock()
+        }
+    };
 }));
 
 const makeGrid = (width, height) => {
     const alphabet = generateAlphabet(height);
 
-    return Object.assign({}, ...alphabet.map(char => ({
-        [char]: makeCells(width)
+    return Object.assign({}, ...alphabet.map(letter => ({
+        [letter]: makeCells(width, letter)
     })));
 };
 
