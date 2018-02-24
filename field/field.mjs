@@ -1,6 +1,6 @@
 'use strict';
 
-import WaterBlock from "../block/water-block.mjs";
+import Cell from './cell'
 
 const DEFAULT_WIDTH = 10;
 const DEFAULT_HEIGHT = 10;
@@ -64,7 +64,7 @@ export default class Field {
     }
 
     static hasShip(cell) {
-        return cell.block.type === 'SHIP_BLOCK';
+        return !!cell.block;
     }
 
     reset() {
@@ -88,10 +88,7 @@ const makeCells = (width, letter) => Object.assign({}, ...Array.from({
 }).map((_, i) => {
     const number = i + 1;
     return {
-        [number]: {
-            id: letter + COORDS_DELIMITER + number,
-            block: new WaterBlock()
-        }
+        [number]: new Cell({id: letter + COORDS_DELIMITER + number})
     };
 }));
 

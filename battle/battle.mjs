@@ -28,9 +28,10 @@ export default class Battle {
         coordsCollection.forEach((coords) => {
             const cell = this.field.getCell(coords);
 
-            cell.block.hit(gun);
+            cell.isOpen = true;
 
             if (Field.hasShip(cell)) {
+                cell.block.hit(gun);
                 console.log(`${cell.id} - hit!`);
             } else {
                 console.log(`${cell.id} - miss.`);

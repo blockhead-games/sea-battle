@@ -10,4 +10,17 @@ export default class Rocket extends Attack {
     constructor() {
         super({name, damage, range});
     }
+
+    action() {
+        return {
+            '-1': {},
+            '0': {
+                '-1': '0.5',
+                '0': '1',
+                '1': '0.5'
+            },
+            '1': {}
+            // + i
+        }
+    }
 }
