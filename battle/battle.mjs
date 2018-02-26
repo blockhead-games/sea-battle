@@ -3,6 +3,24 @@
 import {Field} from '../field';
 import {Ship} from '../ship';
 
+const ship1_data = {
+    name: "Ship 4-deck",
+    blocks: [
+        {perk: "Rocket"},
+        {perk: "Rocket"},
+        {perk: "Rocket"},
+        {perk: "Rocket"}
+    ]
+};
+
+const ship2_data = {
+    name: "Ship 2-deck",
+    blocks: [
+        {perk: "Rocket"},
+        {perk: "Rocket"}
+    ]
+};
+
 // > create field
 // > create ships
 // > placeShips - link the field cells with the ships
@@ -12,8 +30,8 @@ export default class Battle {
         this.field = new Field();
         console.log('field created.');
 
-        const ship1 = new Ship();
-        const ship2 = new Ship();
+        const ship1 = new Ship(ship1_data);
+        const ship2 = new Ship(ship2_data);
 
         console.log('ships created.');
 

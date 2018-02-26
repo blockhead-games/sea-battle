@@ -9,13 +9,6 @@ const COORDS_DELIMITER = ':';
 export default class Field {
     constructor() {
         this.grid = makeGrid(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-
-        // tests
-        // console.log('Grid: ');
-        // console.log(this.grid);
-        //
-        // console.log('Strike A-1: ');
-        // console.log(this.grid.A[1]);
     }
 
     // A1-A4
