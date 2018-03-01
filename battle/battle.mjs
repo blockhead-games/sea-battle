@@ -41,30 +41,27 @@ export default class Battle {
         console.log('ships placed on the field.');
     }
 
-    attack(coordsCollection, gun) {
+    attack(attacksList) {
 
-        coordsCollection.forEach((coords) => {
-            const cell = this.field.getCell(coords);
-
-            cell.isOpen = true;
-
-            if (Field.hasShip(cell)) {
-                cell.block.hit(gun);
-                console.log(`${cell.id} - hit!`);
-            } else {
-                console.log(`${cell.id} - miss.`);
-            }
+        attacksList.forEach(({coords, gun}) => {
+            this.field.hitCell(coords, gun);
         });
     }
 
     start() {
         console.log('Battle has begun!');
-
+        console.log('\n');
         console.log('Show field: ');
         this.field.display();
 
         console.log('attack: ');
-        this.attack(['A:2'], 'Machine Gun');
-        this.attack(['A:6'], 'Rocket');
+        this.attack([
+            {coords: 'A:2', weapon: 'Machine Gun'},
+            {coords: 'B:6', weapon: 'Rocket'}
+        ]);
+
+        console.log('\n');
+        console.log('Show field: ');
+        this.field.display();
     }
 }

@@ -15,7 +15,7 @@ export default class Ship {
     }
 
     hitBlock(perk) {
-        console.log(`${this.name} was attacked in block with perk [${perk}]`)
+        console.log(`[${this.name}] was attacked in block with perk [${perk}]`)
     }
 }
 

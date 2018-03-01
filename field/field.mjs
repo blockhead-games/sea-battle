@@ -56,11 +56,24 @@ export default class Field {
         });
     }
 
-    static hasShip(cell) {
+    hasShip(cell) {
         return !!cell.block;
     }
 
-    reset() {
+    hitCell(coords, gun) {
+        const cell = this.getCell(coords);
+
+        const area = getAreaAround.call(this, coords);
+        area.forEach(cell => cell.isOpen = true);
+
+        console.log(area);
+
+        if (this.hasShip(cell)) {
+            cell.block.hit(gun);
+            console.log(`${cell.id} - hit!`);
+        } else {
+            console.log(`${cell.id} - miss.`);
+        }
     }
 }
 
@@ -93,20 +106,57 @@ const makeGrid = (width, height) => {
     })));
 };
 
+function getSequence(array, startValue, endValue) {
+    const startIndex = array.indexOf(startValue);
+    const endIndex = array.indexOf(endValue) + 1;
+
+    return array.slice(startIndex, endIndex);
+}
+
 function getRow(letter, number1, number2) {
-    let row = [];
-
-    for (let i = number1; i <= number2; i++) {
-        row.push(this.grid[letter][i]);
-    }
-
-    return row;
+    return getSequence(Object.keys(this.grid[letter]), number1, number2)
+        .map((number) => this.grid[letter][number]);
 }
 
 function getColumn(letter1, letter2, number) {
-    const letters = Object.keys(this.grid);
-    const start = letters.indexOf(letter1);
-    const end = letters.indexOf(letter2) + 1;
+    return getSequence(Object.keys(this.grid), letter1, letter2)
+        .map((letter) => this.grid[letter][number]);
+}
 
-    return letters.slice(start, end).map((letter) => this.grid[letter][number]);
+
+// A1  A2  A3
+// B1 [B2] B3
+// C1  C2  C3
+function getAreaAround(coords, range = 1) {
+
+    const [letter, number] = parseCoords(coords);
+
+    const letters = Object.keys(this.grid);
+    const numbers = Object.keys(this.grid[letter]);
+
+    const lettersRange = [];
+    const numbersRange = [];
+
+    const area = [];
+
+    for (let i = -range; i <= range; i++) {
+        const index = letters.indexOf(letter) + i;
+
+        // console.log(i, letters[index]);
+        if (letters[index]) lettersRange.push(letters[index]);
+    }
+
+    lettersRange.forEach(letter => {
+        for (let i = -range; i <= range; i++) {
+            const cell = this.grid[letter][Number(number) + i];
+            if (cell) area.push(cell);
+
+            // const index = numbers.indexOf(number) + i;
+            // const num = numbers[index];
+            // console.log(i, numbers[index], (Number(number) + i));
+            // if (letters[index]) lettersRange.push(letters[index]);
+        }
+    });
+
+    return area;
 }
