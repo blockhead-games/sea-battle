@@ -2,7 +2,13 @@
 
 import {Battle} from './battle';
 
-const battle = new Battle;
+// const battles = {
+//     token1: battle
+// };
+//
+// battles[token];
+
+const battle = new Battle();
 
 battle.start();
 

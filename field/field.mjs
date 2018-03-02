@@ -123,6 +123,11 @@ function getColumn(letter1, letter2, number) {
         .map((letter) => this.grid[letter][number]);
 }
 
+function iterateRange(range, cb) {
+    for (let i = -range; i <= range; i++) {
+        cb(i);
+    }
+}
 
 // A1  A2  A3
 // B1 [B2] B3
@@ -132,31 +137,32 @@ function getAreaAround(coords, range = 1) {
     const [letter, number] = parseCoords(coords);
 
     const letters = Object.keys(this.grid);
-    const numbers = Object.keys(this.grid[letter]);
-
-    const lettersRange = [];
-    const numbersRange = [];
+    // const numbers = Object.keys(this.grid[letter]);
 
     const area = [];
 
-    for (let i = -range; i <= range; i++) {
+    iterateRange(range, (i) => {
         const index = letters.indexOf(letter) + i;
+        const curLetter = letters[index];
 
-        // console.log(i, letters[index]);
-        if (letters[index]) lettersRange.push(letters[index]);
-    }
-
-    lettersRange.forEach(letter => {
-        for (let i = -range; i <= range; i++) {
-            const cell = this.grid[letter][Number(number) + i];
+        if (curLetter) iterateRange(range, (i) => {
+            const cell = this.grid[curLetter][Number(number) + i];
             if (cell) area.push(cell);
-
-            // const index = numbers.indexOf(number) + i;
-            // const num = numbers[index];
-            // console.log(i, numbers[index], (Number(number) + i));
-            // if (letters[index]) lettersRange.push(letters[index]);
-        }
+        });
     });
+
+
+    // lettersRange.forEach(letter => {
+    //     for (let i = -range; i <= range; i++) {
+    //         const cell = this.grid[letter][Number(number) + i];
+    //         if (cell) area.push(cell);
+    //
+    //         // const index = numbers.indexOf(number) + i;
+    //         // const num = numbers[index];
+    //         // console.log(i, numbers[index], (Number(number) + i));
+    //         // if (letters[index]) lettersRange.push(letters[index]);
+    //     }
+    // });
 
     return area;
 }
