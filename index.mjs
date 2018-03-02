@@ -4,8 +4,9 @@ import {config} from './config';
 import {application} from './application';
 // import {Battle} from './battle';
 
-let application = new application(config);
-application.run();
+const app = new application(config);
+
+app.run();
 
 // const battles = {
 //     token1: battle
