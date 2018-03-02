@@ -8,5 +8,9 @@
     "start": "node --experimental-modules index.mjs"
   },
   "author": "Blockhead Games",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2",
+    "request": "^2.83.0"
+  }
 }
