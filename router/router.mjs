@@ -1,5 +1,5 @@
 import {UserController} from '../user';
-import {TelegramBotController} from '../telegramBot';
+import {TelegramBotController} from '../telegram-bot';
 import bodyParser from 'body-parser';
 
 export default class Router {
