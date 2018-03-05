@@ -26,8 +26,8 @@ export default class TelegramBotController {
             }, function (error) {
                 telegramBot.sendMessage(userId, "Error. Can't create battle.");
             });
-            this.res.status(200).json({});
-            this.res.end();
+            res.status(200).json({});
+            res.end();
         }
 
         if (message.text.slice(0, 5) === '/join') {

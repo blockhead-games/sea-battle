@@ -2,6 +2,7 @@
 
 import {Field} from '../field';
 import {Ship} from '../ship';
+import {Player} from '../player'
 
 const ship1_data = {
     name: "Ship 4-deck",
@@ -27,6 +28,9 @@ const ship2_data = {
 export default class Battle {
     constructor() {
 
+        this.teamA = null;
+        this.teamB = null;
+
         this.field = new Field();
         console.log('field created.');
 
@@ -48,6 +52,10 @@ export default class Battle {
         });
     }
 
+    join(uid) {
+        const team = resolveTeam.call(this);
+    }
+
     start() {
         console.log('Battle has begun!');
         console.log('\n');
@@ -64,4 +72,8 @@ export default class Battle {
         console.log('Show field: ');
         this.field.display();
     }
+}
+
+function resolveTeam() {
+    return this.teamA || this.teamB;
 }

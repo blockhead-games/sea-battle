@@ -3,9 +3,10 @@ import {TelegramBotController} from '../telegram-bot';
 import bodyParser from 'body-parser';
 
 export default class Router {
-    constructor(app, config) {
+    constructor(app, config, battles) {
         this.app = app;
         this.config = config;
+        this.battles = battles;
     }
 
     get app() {
@@ -29,7 +30,8 @@ export default class Router {
         this._app.use(bodyParser.json());
 
         this._app.post('/bot', (req, res, next) => {
-            const telegramBotController = new TelegramBotController(req, res, this._config);
+            const telegramBotController = new TelegramBotController(req, res, this._config, this.battles);
+            this.battles.getCommand(telegramBotController.getCommand());
         });
 
         this._app.listen(7881, function () {

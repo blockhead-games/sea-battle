@@ -1,10 +1,10 @@
 'use strict';
 
 import {config} from './config';
-import {application} from './application';
+import {Application} from './application';
 // import {Battle} from './battle';
 
-const app = new application(config);
+const app = new Application(config);
 
 app.run();
 
