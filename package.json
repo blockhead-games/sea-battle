@@ -1,12 +1,20 @@
 {
   "name": "sea-battle",
   "version": "0.1.0",
-  "description": "",
+  "description": "Sea Battle game written in JavaScript (ECMAScript 2017).",
+  "author": "Blockhead Games",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blockhead-games/sea-battle.git"
+  },
   "main": "index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --experimental-modules index.mjs"
+    "example": "node --experimental-modules examples/create-game.mjs"
   },
-  "author": "Blockhead Games",
-  "license": "MIT"
+  "dependencies": {
+    "cli-table2": "^0.2.0",
+    "colors": "^1.2.0-rc0"
+  }
 }
