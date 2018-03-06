@@ -1,3 +1,4 @@
+import {TelegramCommandParser} from '../telegram-bot';
 import {TelegramBotController} from '../telegram-bot';
 import bodyParser from 'body-parser';
 
@@ -31,13 +32,14 @@ export default class Router {
         this._app.use(bodyParser.json());
 
         this._app.post('/bot', (req, res, next) => {
-            console.log('req');
-            //const telegramBotController = new TelegramBotController(req, res, this._config, this.battles);
-            //this.battles.getCommand(telegramBotController.getCommand());
+            const telegramCommandParser = new TelegramCommandParser(req, this._config, this.battles);
+            let result = this.battles.getCommand(telegramCommandParser.getCommand());
+            let telegramBotController = new TelegramBotController(res, this._config);
+            telegramBotController.process(result);
         });
 
         this._app.listen(7881, function () {
-            console.log('Application run. ' + new Date() + new Date().toISOString());
+            console.log('Application run. ' + new Date().toISOString());
         });
     }
 }
