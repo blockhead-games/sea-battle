@@ -1,4 +1,3 @@
-import {BattleMapper} from '../battle';
 import {TelegramBot} from './';
 
 export default class TelegramBotController {
