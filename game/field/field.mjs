@@ -82,16 +82,16 @@ export default class Field {
         return !!cell.block;
     }
 
-    hitCell(coords, gun) {
+    hitCell(coords, weapon) {
         const cell = this.getCell(coords);
 
         const area = getAreaAround.call(this, coords);
 
         if (this.hasShip(cell)) {
-            cell.block.hit(gun);
+            cell.block.hit({coords, weapon});
             area.forEach(cell => cell.isOpen = true);
 
-            console.log(area);
+            // console.log(area);
             console.log(`${cell.id} - hit!`);
         } else {
             console.log(`${cell.id} - miss.`);

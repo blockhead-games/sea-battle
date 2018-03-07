@@ -1,0 +1,9 @@
+{
+  "name": "4-deck ship",
+  "blocks": [
+    {"perk": "MachineGun"},
+    {"perk": "MachineGun"},
+    {"perk": "MachineGun"},
+    {"perk": "MachineGun"}
+  ]
+}
