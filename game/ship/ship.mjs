@@ -14,8 +14,8 @@ export default class Ship {
         this.blocks = build.call(this, blocks);
     }
 
-    hitBlock(perk) {
-        console.log(`[${this.name}] was attacked in block with perk [${perk}]`)
+    hitBlock({coords, weapon}) {
+        console.log(`[${this.name}] was attacked in block on [${coords}] with weapon [${weapon}]`)
     }
 }
 

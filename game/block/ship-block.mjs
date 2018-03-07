@@ -26,9 +26,8 @@ export default class ShipBlock extends Block {
         this.onHit = onHit;
     }
 
-    hit(damage) {
-        // this.isOpen = true;
-        if (this.onHit) this.onHit(damage);
+    hit(summary) {
+        if (this.onHit) this.onHit(summary);
     }
 
     // set health(val) {
