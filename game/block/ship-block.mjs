@@ -29,8 +29,8 @@ export default class ShipBlock extends Block {
     hit(summary) {
         if (this.onHit) this.onHit(summary);
     }
-
-    // set health(val) {
-    //
-    // }
 }
+
+// function countDamage(damage) {
+//     this.health - damage;
+// }

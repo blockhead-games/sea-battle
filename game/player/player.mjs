@@ -18,11 +18,17 @@ export default class Player {
         const ship1 = new Ship(ship1_data);
         const ship2 = new Ship(ship2_data);
 
+        this.ships = [ship1, ship2];
+
         console.log(`[Player ${this.uid}] >> ships created.`);
 
         this.field.placeShip(ship1, ['A:1', 'A:4']);
         this.field.placeShip(ship2, ['B:3', 'C:3']);
 
         console.log(`[Player ${this.uid}] >> ships placed on the field.`);
+    }
+
+    get availableWeapons() {
+        return this.ships.map(ship => ship.weapons);
     }
 }

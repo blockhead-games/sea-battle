@@ -14,6 +14,10 @@ export default class Ship {
         this.blocks = build.call(this, blocks);
     }
 
+    get weapons() {
+        return this.blocks.map(block => block.perk);
+    }
+
     hitBlock({coords, weapon}) {
         console.log(`[${this.name}] was attacked in block on [${coords}] with weapon [${weapon}]`)
     }
