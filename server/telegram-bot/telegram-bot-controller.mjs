@@ -27,9 +27,17 @@ export default class TelegramBotController {
     process(result) {
         switch (result.action) {
             case 'createBattle':
+            case 'cancelBattle':
+            case 'joinBattle':
+            case 'showList':
                 for (let userId in result.messages) {
                     if (result.messages.hasOwnProperty(userId) && userId) {
                         this.bot.sendMessage(userId, result.messages[userId]);
+                    }
+                }
+                for (let userId in result.images) {
+                    if (result.images.hasOwnProperty(userId) && userId) {
+                        this.bot.sendImageByUrl(userId, result.images[userId]);
                     }
                 }
                 break;
