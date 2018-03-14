@@ -26,8 +26,8 @@ export default class ShipBlock extends Block {
         this.onHit = onHit;
     }
 
-    hit(summary) {
-        if (this.onHit) this.onHit(summary);
+    hit(coords, weapon) {
+        if (this.onHit) this.onHit({coords, weapon});
     }
 }
 

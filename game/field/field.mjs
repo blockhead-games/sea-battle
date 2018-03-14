@@ -56,6 +56,7 @@ export default class Field {
     display() {
         const OPEN = colors.green('o');
         const CLOSE = colors.cyan('c');
+        const SHIP = colors.red('x');
 
         const letters = Object.keys(this.grid);
         const numbers = Object.keys(this.grid[letters[0]]);
@@ -68,7 +69,8 @@ export default class Field {
         const data = Object.entries(this.grid).map(([letter, cells]) => ({
             [letter]: Object.entries(cells).map(([number, cell]) => {
                 // console.log(number, cell);
-                return cell.isOpen ? OPEN : CLOSE;
+
+                return this.hasShip(cell) ? SHIP : cell.isOpen ? OPEN : CLOSE;
             })
         }));
 
@@ -88,7 +90,7 @@ export default class Field {
         const area = getAreaAround.call(this, coords);
 
         if (this.hasShip(cell)) {
-            cell.block.hit({coords, weapon});
+            cell.block.hit(weapon, coords);
             area.forEach(cell => cell.isOpen = true);
 
             // console.log(area);
