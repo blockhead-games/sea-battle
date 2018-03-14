@@ -18,6 +18,10 @@ export default class Ship {
         return this.blocks.map(block => block.perk);
     }
 
+    /**
+     * Callback
+     * @param {object} - Summary
+     */
     hitBlock({coords, weapon}) {
         console.log(`[${this.name}] was attacked in block on [${coords}] with weapon [${weapon}]`)
     }
