@@ -6,19 +6,25 @@ const PLAYERS_LIMIT = 2;
 
 export default class Battle {
     constructor() {
-        this.players = [];
+        this.players = {};
         this.isStarted = false;
     }
 
-    join(uid) {
-        if (this.players.length >= PLAYERS_LIMIT) throw  'Battle is full.';
-        this.players.push(new Player(uid));
+    get playersCount() {
+        return Object.keys(this.players).length;
     }
 
-    attack(playerN, attacksList) {
+    join(uid) {
+        if (this.playersCount >= PLAYERS_LIMIT) throw  'Battle is full.';
+        if (this.players[uid]) throw  `Player ${uid} already has joined.`;
+
+        this.players[uid] = new Player(uid);
+    }
+
+    attack(uid, attacksList) {
         if (!this.isStarted) throw 'Battle has not started yet!';
 
-        const player = this.players[playerN];
+        const player = this.players[uid];
         const field = player.field;
 
         attacksList.forEach(({coords, weapon}) => {
@@ -27,6 +33,7 @@ export default class Battle {
     }
 
     start() {
+        if (this.playersCount < PLAYERS_LIMIT) throw `Can't start now. At least ${PLAYERS_LIMIT} players are needed.`;
         this.isStarted = true;
         console.log('Battle has begun!');
     }

@@ -15,7 +15,7 @@
   "main": "index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "example:start-battle": "node --experimental-modules examples/start-battle.mjs"
+    "example:start-battle": "node --experimental-modules examples/battle.mjs"
   },
   "dependencies": {
     "cli-table2": "^0.2.0",

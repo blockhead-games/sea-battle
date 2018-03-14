@@ -1,7 +1,7 @@
 'use strict';
 
 import {Field} from '../field'
-import {Ship} from "../ship/index.mjs";
+import {Ship} from '../ship/index';
 
 import ship1_data from './ships-data/2-deck'
 import ship2_data from './ships-data/4-deck'
@@ -21,7 +21,7 @@ export default class Player {
         console.log(`[Player ${this.uid}] >> ships created.`);
 
         this.field.placeShip(ship1, ['A:1', 'A:4']);
-        this.field.placeShip(ship2, ['B:3', 'C:3']);
+        this.field.placeShip(ship2, ['C:3', 'D:3']);
 
         console.log(`[Player ${this.uid}] >> ships placed on the field.`);
     }
