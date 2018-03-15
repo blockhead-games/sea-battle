@@ -53,28 +53,26 @@ export default class Field {
         return this.grid[letter][number];
     }
 
-    display() {
+    display(showShips = false) {
+        const SHIP = colors.magenta('s');
+        const DEAD = colors.red('x');
         const OPEN = colors.green('o');
         const CLOSE = colors.cyan('c');
-        const SHIP = colors.red('x');
 
         const letters = Object.keys(this.grid);
         const numbers = Object.keys(this.grid[letters[0]]);
 
-        // console.log(this.grid);
-
-
         const table = new CliTable({head: ['', ...numbers]});
-
         const data = Object.entries(this.grid).map(([letter, cells]) => ({
-            [letter]: Object.entries(cells).map(([number, cell]) => {
-                // console.log(number, cell);
+            [letter]: Object.entries(cells).map(([number, cell]) =>
 
-                return this.hasShip(cell) ? SHIP : cell.isOpen ? OPEN : CLOSE;
-            })
+                (this.hasShip(cell)) ?
+                    (cell.block.isDead) ? DEAD
+                        : (showShips) ? SHIP : CLOSE
+                    : (cell.isOpen) ? OPEN : CLOSE
+            )
         }));
 
-        // console.log(data);
         table.push(...data);
 
         console.log(table.toString());
@@ -90,7 +88,7 @@ export default class Field {
         const area = getAreaAround.call(this, coords);
 
         if (this.hasShip(cell)) {
-            cell.block.hit(weapon, coords);
+            cell.block.hit(coords, weapon);
             area.forEach(cell => cell.isOpen = true);
 
             // console.log(area);

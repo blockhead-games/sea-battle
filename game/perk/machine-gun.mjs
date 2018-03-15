@@ -3,7 +3,7 @@
 import Attack from './attack';
 
 const name = 'Machine Gun';
-const damage = 10;
+const damage = 100;
 const range = 1;
 
 export default class MachineGun extends Attack {
@@ -11,7 +11,7 @@ export default class MachineGun extends Attack {
         super({name, damage, range});
     }
 
-    action() {
-        return {'0': {'0': 1.0}}
-    }
+    // action() {
+    //     return {'0': {'0': 1.0}}
+    // }
 }

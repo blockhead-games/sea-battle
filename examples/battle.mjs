@@ -13,20 +13,24 @@ battle.join(uid2);
 battle.start();
 
 const player1 = battle.players[uid1];
+const player2 = battle.players[uid2];
 
 console.log('\n');
-console.log(`[Player ${uid1}] field:`);
-player1.field.display();
+console.log(`[Player ${player1.uid}] field:`);
+player1.field.display(true);
+
+console.log(`[Player ${player1.uid}] weapons:`);
+player1.availableWeapons.forEach((weapon, i) => {
+    console.log(i, weapon.name);
+});
 
 console.log('\n');
-console.log(`attack [Player ${uid1}]: `);
+console.log(`attack [Player ${player2.uid}]: `);
 
-console.log(player1.availableWeapons);
-
-battle.attack(44444444, [
-    {coords: 'A:2', weapon: 'MachineGun'},
-    {coords: 'B:6', weapon: 'Rocket'}
+battle.attack(player2.uid, [
+    {coords: 'A:2', weapon: player1.availableWeapons[0]},
+    {coords: 'B:6', weapon: player1.availableWeapons[1]}
 ]);
 
-console.log(`[Player ${uid1}] field:`);
-player1.field.display();
+console.log(`[Player ${player2.uid}] field:`);
+player2.field.display();

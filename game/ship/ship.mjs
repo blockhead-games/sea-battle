@@ -23,7 +23,7 @@ export default class Ship {
      * @param {object} - Summary
      */
     hitBlock({coords, weapon}) {
-        console.log(`[${this.name}] was attacked in block on [${coords}] with weapon [${weapon}]`)
+        console.log(`[${this.name}] was attacked in block on [${coords}] with weapon [${weapon.name}]`)
     }
 }
 

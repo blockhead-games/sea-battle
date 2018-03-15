@@ -26,11 +26,12 @@ export default class ShipBlock extends Block {
         this.onHit = onHit;
     }
 
+    get isDead() {
+        return this.health <= 0;
+    }
+
     hit(coords, weapon) {
+        this.health -= weapon._damage;
         if (this.onHit) this.onHit({coords, weapon});
     }
 }
-
-// function countDamage(damage) {
-//     this.health - damage;
-// }
