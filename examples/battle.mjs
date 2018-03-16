@@ -29,7 +29,9 @@ console.log(`attack [Player ${player2.uid}]: `);
 
 battle.attack(player2.uid, [
     {coords: 'A:2', weapon: player1.availableWeapons[0]},
-    {coords: 'B:6', weapon: player1.availableWeapons[1]}
+    {coords: 'B:6', weapon: player1.availableWeapons[1]},
+    {coords: 'C:3', weapon: player1.availableWeapons[1]},
+    {coords: 'D:3', weapon: player1.availableWeapons[1]}
 ]);
 
 console.log(`[Player ${player2.uid}] field:`);

@@ -5,25 +5,26 @@ import * as Perk from '../perk'
 
 
 export default class Ship {
-    constructor(params) {
 
-        const {name, blocks} = params;
+    constructor(name, blocks, onDestroy) {
 
         this.name = name;
 
         this.blocks = build.call(this, blocks);
+
+        this.onDestory = onDestroy;
     }
 
     get weapons() {
         return this.blocks.map(block => block.perk);
     }
 
-    /**
-     * Callback
-     * @param {object} - Summary
-     */
-    hitBlock({coords, weapon}) {
-        console.log(`[${this.name}] was attacked in block on [${coords}] with weapon [${weapon.name}]`)
+    get isDead() {
+        return this.blocks.every(block => block.isDead);
+    }
+
+    get coordsCollection() {
+        return this.blocks.map(block => block.coords);
     }
 }
 
@@ -36,6 +37,19 @@ function build(blocks) {
 
         if (!PerkConstructor) throw `Constructor for perk [${block.perk}] was not found.`;
 
-        return new ShipBlock({perk: new PerkConstructor(), onHit: this.hitBlock.bind(this)})
+        return new ShipBlock(new PerkConstructor(), blockHit.bind(this))
     });
+}
+
+/**
+ * Callback
+ * @param {object} - Summary
+ */
+function blockHit({coords, weapon}) {
+    console.log(`[${this.name}] was attacked in block on [${coords}] with weapon [${weapon.name}]`);
+
+    if (this.isDead) {
+        console.log(`[${this.name}] is dead.`);
+        if (this.onDestory) this.onDestory(this.coordsCollection);
+    }
 }

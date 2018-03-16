@@ -4,6 +4,7 @@ import CliTable from 'cli-table2'
 import colors from 'colors/safe'
 
 import Cell from './cell'
+import {Ship} from '../ship';
 
 const DEFAULT_WIDTH = 10;
 const DEFAULT_HEIGHT = 10;
@@ -12,32 +13,40 @@ const COORDS_DELIMITER = ':';
 export default class Field {
     constructor() {
         this.grid = makeGrid(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        this.ships = [];
     }
 
     // A1-A4
     // A1-B1
-    getCellsSequence([coord1, coord2]) {
+    getCellsSequence([from, to]) {
         //@todo check if (Letter, Number) go in row
+        // const letters = Object.keys(this.grid);
 
-        const letters = Object.keys(this.grid);
-        const [letter1, number1] = coord1;
-        const [letter2, number2] = coord2;
+        const [fromLetter, fromNumber] = from;
+        const [toLetter, toNumber] = to;
 
-        if (letter1 === letter2) {
-            return getRow.apply(this, [letter1, number1, number2]);
-        } else if (number1 === number2) {
-            return getColumn.apply(this, [letter1, letter2, number1]);
+        if (fromLetter === toLetter) {
+            return getRow.apply(this, [fromLetter, fromNumber, toNumber]);
+        } else if (fromNumber === toNumber) {
+            return getColumn.apply(this, [fromLetter, toLetter, fromNumber]);
         } else {
             throw 'Incorrect coords.';
         }
     }
 
     /**
-     * @param ship
-     * @param coordsCollection
+     * @param shipData
+     * @param coordsRange
      */
-    placeShip(ship, coordsCollection) {
-        const cells = this.getCellsSequence(coordsCollection.map((coords) => parseCoords(coords)));
+    placeShip({name, blocks}, coordsRange) {
+        const ship = new Ship(name, blocks, shipDestroyed.bind(this));
+        const cells = this.getCellsSequence(coordsRange.map((coords) => parseCoords(coords)));
+
+        ship.blocks.forEach((block, i) => {
+            block.coords = cells[i].id;
+        });
+
+        this.ships.push(ship);
 
         cells.forEach((cell, i) => {
             cell.block = ship.blocks[i];
@@ -64,13 +73,15 @@ export default class Field {
 
         const table = new CliTable({head: ['', ...numbers]});
         const data = Object.entries(this.grid).map(([letter, cells]) => ({
-            [letter]: Object.entries(cells).map(([number, cell]) =>
+            [letter]: Object.entries(cells).map(([number, cell]) => {
 
-                (this.hasShip(cell)) ?
-                    (cell.block.isDead) ? DEAD
+                const block = this.getBlockOn(cell.id);
+
+                return (block) ?
+                    (block.isDead) ? DEAD
                         : (showShips) ? SHIP : CLOSE
                     : (cell.isOpen) ? OPEN : CLOSE
-            )
+            })
         }));
 
         table.push(...data);
@@ -78,23 +89,28 @@ export default class Field {
         console.log(table.toString());
     }
 
-    hasShip(cell) {
-        return !!cell.block;
+    /**
+     * @param coords
+     * @return {Block|undefined}
+     */
+    getBlockOn(coords) {
+        let block = undefined;
+
+        this.ships.find(ship =>
+            block = ship.blocks.find(block => block.coords === coords)
+        );
+
+        return block;
     }
 
     hitCell(coords, weapon) {
-        const cell = this.getCell(coords);
+        const block = this.getBlockOn(coords);
 
-        const area = getAreaAround.call(this, coords);
-
-        if (this.hasShip(cell)) {
-            cell.block.hit(coords, weapon);
-            area.forEach(cell => cell.isOpen = true);
-
-            // console.log(area);
-            console.log(`${cell.id} - hit!`);
+        if (block) {
+            console.log(`${block.coords} - hit!`);
+            block.hit(weapon);
         } else {
-            console.log(`${cell.id} - miss.`);
+            console.log(`${coords} - miss.`);
         }
     }
 }
@@ -106,8 +122,6 @@ const generateAlphabet = (size = 26, firstChar = 65) => Array.from({
 }, (_, i) => String.fromCharCode(firstChar + i));
 
 /**
- * @todo make each cell new instance of {WaterBlock}
- * @todo rename makeCells -> makeBlocks
  * @param width
  * @param letter
  */
@@ -116,7 +130,7 @@ const makeCells = (width, letter) => Object.assign({}, ...Array.from({
 }).map((_, i) => {
     const number = i + 1;
     return {
-        [number]: new Cell({id: letter + COORDS_DELIMITER + number})
+        [number]: new Cell(letter + COORDS_DELIMITER + number)
     };
 }));
 
@@ -149,6 +163,13 @@ function iterateRange(range, cb) {
     for (let i = -range; i <= range; i++) {
         cb(i);
     }
+}
+
+function shipDestroyed(coordsCollection) {
+    coordsCollection.forEach(coords => {
+        const area = getAreaAround.call(this, coords);
+        area.forEach(cell => cell.isOpen = true);
+    });
 }
 
 // A1  A2  A3

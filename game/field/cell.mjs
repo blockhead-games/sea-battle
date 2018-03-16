@@ -1,15 +1,8 @@
 'use strict';
 
 export default class Cell {
-    constructor(params) {
-        const {
-            id,
-            isOpen = false,
-            block = null
-        } = params;
-
+    constructor(id) {
         this.id = id;
-        this.isOpen = isOpen;
-        this.block = block;
+        this.isOpen = false;
     }
 }
