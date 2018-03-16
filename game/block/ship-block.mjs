@@ -4,33 +4,31 @@ import Perk from "../perk/perk.mjs";
 import Block from "./block.mjs";
 
 const health = 100;
-const type = 'SHIP_BLOCK';
 
 export default class ShipBlock extends Block {
 
     /**
-     * @param {Object} params
+     * @param perk
+     * @param onHit
      */
-    constructor(params) {
-        super(params);
-
-        const {perk, onHit} = params || {};
+    constructor(perk, onHit) {
+        super();
 
         if (!(perk instanceof Perk)) {
             throw 'Перк задан криво';
         }
 
         this.health = health;
-        this.type = type;
         this.perk = perk;
         this.onHit = onHit;
     }
 
-    hit(summary) {
-        if (this.onHit) this.onHit(summary);
+    get isDead() {
+        return this.health <= 0;
     }
 
-    // set health(val) {
-    //
-    // }
+    hit(weapon) {
+        this.health -= weapon.damage;
+        if (this.onHit) this.onHit({coords: this.coords, weapon});
+    }
 }

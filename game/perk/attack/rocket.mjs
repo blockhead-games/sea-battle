@@ -3,12 +3,12 @@
 import Attack from './attack';
 
 const name = 'Rocket';
-const damage = 10;
-const range = 1;
+const damage = 100;
+const range = 3;
 
 export default class Rocket extends Attack {
     constructor() {
-        super({name, damage, range});
+        super(name, damage, range);
     }
 
     action() {
