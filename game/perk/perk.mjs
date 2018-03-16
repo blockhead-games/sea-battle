@@ -1,13 +1,7 @@
 'use strict';
 
-let field = 'foo';
-
 export default class Perk {
-
-    constructor(obj) {
-        let {name, iconId} = obj;
-
+    constructor(name) {
         this.name = name;
-        this.iconId = iconId;
     }
 }

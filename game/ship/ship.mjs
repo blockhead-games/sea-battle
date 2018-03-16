@@ -1,8 +1,7 @@
 'use strict';
 
 import {ShipBlock} from '../block'
-import * as Perk from '../perk'
-
+import {Attack} from '../perk'
 
 export default class Ship {
 
@@ -33,7 +32,7 @@ export default class Ship {
  */
 function build(blocks) {
     return blocks.map(block => {
-        const PerkConstructor = Perk[block.perk];
+        const PerkConstructor = Attack[block.perk];
 
         if (!PerkConstructor) throw `Constructor for perk [${block.perk}] was not found.`;
 

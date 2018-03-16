@@ -8,7 +8,7 @@ const range = 1;
 
 export default class MachineGun extends Attack {
     constructor() {
-        super({name, damage, range});
+        super(name, damage, range);
     }
 
     // action() {
