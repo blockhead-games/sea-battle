@@ -1,6 +1,9 @@
 import {TelegramCommandParser} from '../telegram-bot';
 import {TelegramBotController} from '../telegram-bot';
 import bodyParser from 'body-parser';
+import process from 'process';
+
+const port = process.env.PORT || 3000;
 
 export default class Router {
     constructor(app, config, battles) {
@@ -38,7 +41,7 @@ export default class Router {
             telegramBotController.process(result);
         });
 
-        this._app.listen(7881, function () {
+        this._app.listen(port, function () {
             console.log('Application run. ' + new Date().toISOString());
         });
     }
