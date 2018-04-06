@@ -28,6 +28,21 @@ export default class TelegramBot {
         });
     }
 
+    sendMarkdown(id, message) {
+        request({
+            uri: 'https://api.telegram.org/bot' + this.token + '/sendMessage',
+            body: JSON.stringify({
+                chat_id: id,
+                text: message,
+                parse_mode: 'Markdown'
+            }),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }}, function (error, response) {
+        });
+    }
+
     sendImageByUrl(id, imageUrl) {
         request({
             uri: 'https://api.telegram.org/bot' + this.token + '/sendPhoto',

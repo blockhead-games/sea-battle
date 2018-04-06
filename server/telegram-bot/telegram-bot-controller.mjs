@@ -40,6 +40,11 @@ export default class TelegramBotController {
                         this.bot.sendImageByUrl(userId, result.images[userId]);
                     }
                 }
+                for (let userId in result.markdowns) {
+                    if (result.markdowns.hasOwnProperty(userId) && userId) {
+                        this.bot.sendMarkdown(userId, result.markdowns[userId]);
+                    }
+                }
                 break;
             default:
         }
