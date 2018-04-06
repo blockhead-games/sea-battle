@@ -98,9 +98,9 @@ export default class Battles {
                             {[player.uid]: "https://cs.pikabu.ru/images/big_size_comm/2013-07_5/1374586586746.jpg"}
                         )));
 
-                        result.messages = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => (
-                            {[player.uid]: player.field.display(true)}
-                        )));
+                        // result.messages = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => (
+                        //     {[player.uid]: player.field.display(true)}
+                        // )));
 
                         const testMdTable = table([
                             ['Beep', 'No.', 'Boop'],
@@ -111,7 +111,13 @@ export default class Battles {
                         ], {align: ['l', 'c', 'r']});
 
                         result.markdowns = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => (
-                            {[player.uid]: testMdTable}
+                            {
+                                [player.uid]:
+                                'First Header   | Second Header\n' +
+                                '  -------------  | -------------\n' +
+                                '  *Content Cell* | Content Cell\n' +
+                                '  Content Cell   | Content Cell'
+                            }
                         )));
 
                     } else {
