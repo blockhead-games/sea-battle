@@ -113,10 +113,10 @@ export default class Battles {
                         result.markdowns = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => (
                             {
                                 [player.uid]:
-                                'First Header   | Second Header\n' +
-                                '  -------------  | -------------\n' +
-                                '  *Content Cell* | Content Cell\n' +
-                                '  Content Cell   | Content Cell'
+                                'First Header  | Second Header\n' +
+                                '------------- | -------------\n' +
+                                'Content Cell  | Content Cell\n' +
+                                'Content Cell  | Content Cell'
                             }
                         )));
 
