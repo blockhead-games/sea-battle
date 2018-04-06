@@ -110,7 +110,7 @@ export default class Battles {
                             ['bar', '45', 'lmno']
                         ], {align: ['l', 'c', 'r']});
 
-                        result.messages = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => (
+                        result.markdowns = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => (
                             {[player.uid]: testMdTable}
                         )));
 
