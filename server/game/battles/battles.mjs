@@ -88,10 +88,13 @@ export default class Battles {
 
                         result.error = 0;
 
-                        result.messages = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => {
-                            console.log(player);
-                            return {[player.uid]: "The battle has started. Attack your enemy!"}
-                        }));
+                        result.messages = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => (
+                            {[player.uid]: "The battle has started. Attack your enemy!"}
+                        )));
+
+                        result.images = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => (
+                            {[player.uid]: "https://cs.pikabu.ru/images/big_size_comm/2013-07_5/1374586586746.jpg"}
+                        )));
 
                         // result.messages = {
                         //     [this.battles[command.params.battleId].players[command.params.userId]]: "The battle has started. Attack your enemy!"
@@ -103,10 +106,7 @@ export default class Battles {
                         //     [this.battles[command.params.battleId].teamA]: "The battle has started. Attack your enemy!",
                         //     [this.battles[command.params.battleId].teamB]: "The battle has started. Attack your enemy!"
                         // };
-                        // result.images = {
-                        //     [this.battles[command.params.battleId].teamA]: "https://cs.pikabu.ru/images/big_size_comm/2013-07_5/1374586586746.jpg",
-                        //     [this.battles[command.params.battleId].teamB]: "https://cs.pikabu.ru/images/big_size_comm/2013-07_5/1374586586746.jpg"
-                        // };
+
                     } else {
                         result.error = 31;
                         result.messages = {
