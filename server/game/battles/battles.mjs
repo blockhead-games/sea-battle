@@ -88,13 +88,14 @@ export default class Battles {
 
                         result.error = 0;
 
-                        Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => {
+                        result.messages = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => {
+                            console.log(player);
                             return {[player.uid]: "The battle has started. Attack your enemy!"}
                         }));
 
-                        result.messages = {
-                            [this.battles[command.params.battleId].players[command.params.userId]]: "The battle has started. Attack your enemy!"
-                        };
+                        // result.messages = {
+                        //     [this.battles[command.params.battleId].players[command.params.userId]]: "The battle has started. Attack your enemy!"
+                        // };
 
                         // this.battles[command.params.battleId].teamB = command.params.userId;
                         // result.error = 0;
