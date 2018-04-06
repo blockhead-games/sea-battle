@@ -1,3 +1,4 @@
+import {Battle} from '../../../game';
 
 export default class Battles {
     constructor() {
@@ -37,10 +38,14 @@ export default class Battles {
                         [command.params.userId]: "You already in battle: " + this.userList[command.params.userId] + "."
                     };
                 } else {
-                    this.battles[id] = {
-                        teamA: command.params.userId,
-                        teamB: 0
-                    };
+                    this.battles[id] = new Battle();
+
+                    this.battles[id].join(command.params.userId);
+
+                    // this.battles[id] = {
+                    //     teamA: command.params.userId,
+                    //     teamB: 0
+                    // };
                     this.userList[command.params.userId] = id;
                     result.error = 0;
                     result.messages = {
@@ -77,17 +82,26 @@ export default class Battles {
                         [command.params.userId]: "You already in battle (" + this.userList[command.params.userId] + "). Use /cancel before join."
                     };
                 } else {
-                    if (this.battles[command.params.battleId] && this.battles[command.params.battleId].teamB === 0) {
-                        this.battles[command.params.battleId].teamB = command.params.userId;
+                    if (this.battles[command.params.battleId]) {
+
+                        this.battles[command.params.battleId].join(command.params.userId);
+
                         result.error = 0;
+
                         result.messages = {
-                            [this.battles[command.params.battleId].teamA]: "The battle has started. Attack your enemy!",
-                            [this.battles[command.params.battleId].teamB]: "The battle has started. Attack your enemy!"
+                            [this.battles[command.params.battleId].players[command.params.userId]]: "The battle has started. Attack your enemy!"
                         };
-                        result.images = {
-                            [this.battles[command.params.battleId].teamA]: "https://cs.pikabu.ru/images/big_size_comm/2013-07_5/1374586586746.jpg",
-                            [this.battles[command.params.battleId].teamB]: "https://cs.pikabu.ru/images/big_size_comm/2013-07_5/1374586586746.jpg"
-                        };
+
+                        // this.battles[command.params.battleId].teamB = command.params.userId;
+                        // result.error = 0;
+                        // result.messages = {
+                        //     [this.battles[command.params.battleId].teamA]: "The battle has started. Attack your enemy!",
+                        //     [this.battles[command.params.battleId].teamB]: "The battle has started. Attack your enemy!"
+                        // };
+                        // result.images = {
+                        //     [this.battles[command.params.battleId].teamA]: "https://cs.pikabu.ru/images/big_size_comm/2013-07_5/1374586586746.jpg",
+                        //     [this.battles[command.params.battleId].teamB]: "https://cs.pikabu.ru/images/big_size_comm/2013-07_5/1374586586746.jpg"
+                        // };
                     } else {
                         result.error = 31;
                         result.messages = {
@@ -98,7 +112,7 @@ export default class Battles {
                 break;
             case 'showList':
                 let battles = "Battle list:\n";
-                for(let battleId in this.battles) {
+                for (let battleId in this.battles) {
                     if (this.battles[battleId].teamB === 0) {
                         if (this.battles[battleId].teamA === command.params.userId) {
                             battles += battleId + " (You in this battle)\n";
