@@ -113,12 +113,15 @@ export default class Battles {
             case 'showList':
                 let battles = "Battle list:\n";
                 for (let battleId in this.battles) {
-                    if (this.battles[battleId].teamB === 0) {
-                        if (this.battles[battleId].teamA === command.params.userId) {
+
+                    if (this.battles[battleId].canJoin()) {
+
+                        if (this.battles[battleId].creator.uid === command.params.userId) {
                             battles += battleId + " (You in this battle)\n";
                         } else {
                             battles += battleId + "\n";
                         }
+
                     }
                 }
                 result.error = 0;

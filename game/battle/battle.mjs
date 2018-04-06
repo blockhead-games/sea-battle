@@ -21,6 +21,14 @@ export default class Battle {
         this.players[uid] = new Player(uid);
     }
 
+    get creator() {
+        return Object.values(this.players)[0];
+    }
+
+    canJoin() {
+        return this.playersCount < PLAYERS_LIMIT;
+    }
+
     attack(uid, attacksList) {
         if (!this.isStarted) throw 'Battle has not started yet!';
 
