@@ -96,16 +96,9 @@ export default class Battles {
                             {[player.uid]: "https://cs.pikabu.ru/images/big_size_comm/2013-07_5/1374586586746.jpg"}
                         )));
 
-                        // result.messages = {
-                        //     [this.battles[command.params.battleId].players[command.params.userId]]: "The battle has started. Attack your enemy!"
-                        // };
-
-                        // this.battles[command.params.battleId].teamB = command.params.userId;
-                        // result.error = 0;
-                        // result.messages = {
-                        //     [this.battles[command.params.battleId].teamA]: "The battle has started. Attack your enemy!",
-                        //     [this.battles[command.params.battleId].teamB]: "The battle has started. Attack your enemy!"
-                        // };
+                        result.messages = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => (
+                            {[player.uid]: player.field.display(true)}
+                        )));
 
                     } else {
                         result.error = 31;

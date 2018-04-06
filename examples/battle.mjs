@@ -17,7 +17,7 @@ const player2 = battle.players[uid2];
 
 console.log('\n');
 console.log(`[Player ${player1.uid}] field:`);
-player1.field.display(true);
+console.log(player1.field.display(true));
 
 console.log(`[Player ${player1.uid}] weapons:`);
 player1.availableWeapons.forEach((weapon, i) => {
@@ -35,4 +35,4 @@ battle.attack(player2.uid, [
 ]);
 
 console.log(`[Player ${player2.uid}] field:`);
-player2.field.display();
+console.log(player2.field.display());

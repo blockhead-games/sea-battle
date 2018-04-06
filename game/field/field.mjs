@@ -86,7 +86,7 @@ export default class Field {
 
         table.push(...data);
 
-        console.log(table.toString());
+        return table.toString();
     }
 
     /**
