@@ -1,4 +1,6 @@
-import {Battle} from '../../../game';
+import table from 'markdown-table'
+
+import {Battle} from '../../../game'
 
 export default class Battles {
     constructor() {
@@ -98,6 +100,18 @@ export default class Battles {
 
                         result.messages = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => (
                             {[player.uid]: player.field.display(true)}
+                        )));
+
+                        const testMdTable = table([
+                            ['Beep', 'No.', 'Boop'],
+                            ['beep', '1024', 'xyz'],
+                            ['boop', '3388450', 'tuv'],
+                            ['foo', '10106', 'qrstuv'],
+                            ['bar', '45', 'lmno']
+                        ], {align: ['l', 'c', 'r']});
+
+                        result.messages = Object.assign({}, ...Object.values(this.battles[command.params.battleId].players).map(player => (
+                            {[player.uid]: testMdTable}
                         )));
 
                     } else {
